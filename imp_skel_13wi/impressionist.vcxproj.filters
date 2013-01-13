@@ -16,9 +16,6 @@
     <ClCompile Include="lineBrush.cpp">
       <Filter>CustomBrushes</Filter>
     </ClCompile>
-    <ClCompile Include="circelBrush.cpp">
-      <Filter>CustomBrushes</Filter>
-    </ClCompile>
     <ClCompile Include="scatteredPointsBrush.cpp">
       <Filter>CustomBrushes</Filter>
     </ClCompile>
@@ -26,6 +23,12 @@
       <Filter>CustomBrushes</Filter>
     </ClCompile>
     <ClCompile Include="scatteredLinesBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
+    <ClCompile Include="circleBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
+    <ClCompile Include="scatteredCirclesBrush.cpp">
       <Filter>CustomBrushes</Filter>
     </ClCompile>
   </ItemGroup>
@@ -56,6 +59,9 @@
       <Filter>CustomBrushes</Filter>
     </ClInclude>
     <ClInclude Include="scatteredLinesBrush.h">
+      <Filter>CustomBrushes</Filter>
+    </ClInclude>
+    <ClInclude Include="scatteredCirclesBrush.h">
       <Filter>CustomBrushes</Filter>
     </ClInclude>
   </ItemGroup>
