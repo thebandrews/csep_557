@@ -142,6 +142,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="circelBrush.cpp" />
     <ClCompile Include="file dialog\Fl_Native_File_Chooser.cxx" />
     <ClCompile Include="FltDesignUI.cpp" />
     <ClCompile Include="imageio.cpp" />
@@ -149,13 +150,16 @@
     <ClCompile Include="impressionist.cpp" />
     <ClCompile Include="impressionistDoc.cpp" />
     <ClCompile Include="impressionistUI.cpp" />
+    <ClCompile Include="lineBrush.cpp" />
     <ClCompile Include="originalView.cpp" />
     <ClCompile Include="paintView.cpp" />
     <ClCompile Include="pointBrush.cpp" />
+    <ClCompile Include="scatteredPointsBrush.cpp" />
     <ClCompile Include="triangleBrush.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="brushes.h" />
+    <ClInclude Include="circleBrush.h" />
     <ClInclude Include="dialog.h" />
     <ClInclude Include="FltDesignUI.h" />
     <ClInclude Include="imageio.h" />
@@ -163,9 +167,11 @@
     <ClInclude Include="impressionist.h" />
     <ClInclude Include="impressionistDoc.h" />
     <ClInclude Include="impressionistUI.h" />
+    <ClInclude Include="lineBrush.h" />
     <ClInclude Include="originalView.h" />
     <ClInclude Include="paintView.h" />
     <ClInclude Include="pointBrush.h" />
+    <ClInclude Include="scatteredPointsBrush.h" />
     <ClInclude Include="triangleBrush.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

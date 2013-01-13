@@ -525,19 +525,16 @@ void ImpressionistUI::updateFilter()
 // Main menu definition
 Fl_Menu_Item ImpressionistUI::menuitems[] = {
     { "&File",		0, 0, 0, FL_SUBMENU },
-        { "&Load Image...",	FL_ALT + 'l', (Fl_Callback *)ImpressionistUI::cb_load_image },
-        { "&Save Image...",	FL_ALT + 's', (Fl_Callback *)ImpressionistUI::cb_save_image },
-        { "&Brushes...",	FL_ALT + 'b', (Fl_Callback *)ImpressionistUI::cb_brushes }, 
-        { "&Filter Kernel...", FL_CTRL + 'f', (Fl_Callback *)ImpressionistUI::cb_filter_kernel }, 
-        { "&Clear Canvas", FL_ALT + 'c', (Fl_Callback *)ImpressionistUI::cb_clear_canvas, 0, FL_MENU_DIVIDER },
-        
-        { "&Quit",			FL_ALT + 'q', (Fl_Callback *)ImpressionistUI::cb_exit },
-        { 0 },
-
-    { "&Help",		0, 0, 0, FL_SUBMENU },
-        { "&About",	FL_ALT + 'a', (Fl_Callback *)ImpressionistUI::cb_about },
-        { 0 },
-
+    { "&Load Image...",     FL_ALT + 'l', (Fl_Callback *)ImpressionistUI::cb_load_image },
+    { "&Save Image...",     FL_ALT + 's', (Fl_Callback *)ImpressionistUI::cb_save_image },
+    { "&Brushes...",        FL_ALT + 'b', (Fl_Callback *)ImpressionistUI::cb_brushes }, 
+    { "&Filter Kernel...",  FL_CTRL + 'f', (Fl_Callback *)ImpressionistUI::cb_filter_kernel }, 
+    { "&Clear Canvas",      FL_ALT + 'c', (Fl_Callback *)ImpressionistUI::cb_clear_canvas, 0, FL_MENU_DIVIDER },
+    { "&Quit",              FL_ALT + 'q', (Fl_Callback *)ImpressionistUI::cb_exit },
+    { 0 },
+    { "&Help",              0, 0, 0, FL_SUBMENU },
+    { "&About",             FL_ALT + 'a', (Fl_Callback *)ImpressionistUI::cb_about },
+    { 0 },
     { 0 }
 };
 
