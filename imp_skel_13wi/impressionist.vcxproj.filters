@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="file dialog\Fl_Native_File_Chooser.cxx" />
+    <ClCompile Include="FltDesignUI.cpp" />
+    <ClCompile Include="imageio.cpp" />
+    <ClCompile Include="impBrush.cpp" />
+    <ClCompile Include="impressionist.cpp" />
+    <ClCompile Include="impressionistDoc.cpp" />
+    <ClCompile Include="impressionistUI.cpp" />
+    <ClCompile Include="originalView.cpp" />
+    <ClCompile Include="paintView.cpp" />
+    <ClCompile Include="triangleBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
+    <ClCompile Include="lineBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
+    <ClCompile Include="circelBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
+    <ClCompile Include="scatteredPointsBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
+    <ClCompile Include="pointBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="brushes.h" />
+    <ClInclude Include="dialog.h" />
+    <ClInclude Include="FltDesignUI.h" />
+    <ClInclude Include="imageio.h" />
+    <ClInclude Include="impBrush.h" />
+    <ClInclude Include="impressionist.h" />
+    <ClInclude Include="impressionistDoc.h" />
+    <ClInclude Include="impressionistUI.h" />
+    <ClInclude Include="originalView.h" />
+    <ClInclude Include="paintView.h" />
+    <ClInclude Include="triangleBrush.h">
+      <Filter>CustomBrushes</Filter>
+    </ClInclude>
+    <ClInclude Include="lineBrush.h">
+      <Filter>CustomBrushes</Filter>
+    </ClInclude>
+    <ClInclude Include="circleBrush.h">
+      <Filter>CustomBrushes</Filter>
+    </ClInclude>
+    <ClInclude Include="scatteredPointsBrush.h">
+      <Filter>CustomBrushes</Filter>
+    </ClInclude>
+    <ClInclude Include="pointBrush.h">
+      <Filter>CustomBrushes</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CustomBrushes">
+      <UniqueIdentifier>{f4bbd0a1-807b-425e-b33f-f23798162614}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

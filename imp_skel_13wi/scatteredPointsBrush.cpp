@@ -10,6 +10,8 @@
 #include "scatteredPointsBrush.h"
 
 #include <math.h>
+#include <time.h>
+
 
 #define PI 3.14159265       // Used for circle calculation
 
@@ -19,6 +21,7 @@ extern float frand();
 ScatteredPointsBrush::ScatteredPointsBrush( ImpressionistDoc* pDoc, char* name ) :
     ImpBrush(pDoc,name)
 {
+    m_clickCount = 0;
 }
 
 void ScatteredPointsBrush::BrushBegin( const ImpBrush::Point source, const ImpBrush::Point target )
@@ -26,9 +29,11 @@ void ScatteredPointsBrush::BrushBegin( const ImpBrush::Point source, const ImpBr
     ImpressionistDoc* pDoc = GetDocument();
     ImpressionistUI* dlg=pDoc->m_pUI;
 
-    int size = pDoc->getSize();
-
-    glPointSize( (float)size );
+    //
+    // Point size is always 1. Slider will indicate
+    // Dimensions / number of scattered points
+    //
+    glPointSize( 1.0 );
 
     BrushMove( source, target );
 }
@@ -44,25 +49,52 @@ void ScatteredPointsBrush::BrushMove( const ImpBrush::Point source, const ImpBru
     }
 
     GLint size = pDoc->getSize();
-    GLint segments = 40; // Increase segment size to increase accuracy
-    GLint Ax,Ay;
+    GLint pointCount = .1 * (size * size); // Fill up 10% of the available pixels 
+    pointCount = (pointCount < 1 ? 1 : pointCount); // Insure pointCount >= 1
 
-    glBegin( GL_POLYGON );
-    SetColor( source );
+    GLint Ax,Ay,Ox,Oy;
+
+    ImpBrush::Point temp_point;
 
     //
-    // Compute ScatteredPoints points (from 0-360 degrees)
+    // Compute origin x,y values
     //
-    for(int i = 0; i < 360; i += (360 / segments))
+    Ox = target.x - (.5*size);
+    Oy = target.y - (.5*size);
+
+    //
+    // Randomization for each click (cap at INT_MAX should we ever hit it)
+    //
+    m_clickCount >= INT_MAX ? m_clickCount = 0 : m_clickCount++;
+    
+
+    //
+    // Seed random number using the time plus click count
+    //
+    srand ( time(NULL) + m_clickCount );
+
+
+    glBegin( GL_POINTS );
+
+    //
+    // Generate pointCount number of points in the size region
+    //
+    for(GLint i = 0; i <= pointCount; i++)
     {
         //
-        // Convert Degrees to radians and calculate x,y
+        // Compute X,Y Coordinates
         //
-        GLfloat radian = i * (PI / 180);
-        Ax = target.x + cos(radian) * (.5*size);
-        Ay = target.y + sin(radian) * (.5*size);
+        Ax = rand() % size + Ox;
+        Ay = rand() % size + Oy;
 
-        glVertex2d(Ax, Ay);
+        //
+        // Color sampling is different for each location
+        //
+        temp_point.x = source.x + (Ax - target.x);
+        temp_point.y = source.y + (Ay - target.y);
+        SetColor( temp_point ); 
+
+        glVertex2d( Ax, Ay );
     }
 
     glEnd();

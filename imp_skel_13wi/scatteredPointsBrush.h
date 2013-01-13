@@ -11,6 +11,9 @@
 
 class ScatteredPointsBrush : public ImpBrush
 {
+private:
+    int m_clickCount;
+
 public:
     ScatteredPointsBrush( ImpressionistDoc* pDoc = NULL, char* name = NULL );
 
