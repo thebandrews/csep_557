@@ -25,6 +25,9 @@
     <ClCompile Include="pointBrush.cpp">
       <Filter>CustomBrushes</Filter>
     </ClCompile>
+    <ClCompile Include="scatteredLinesBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="brushes.h" />
@@ -50,6 +53,9 @@
       <Filter>CustomBrushes</Filter>
     </ClInclude>
     <ClInclude Include="pointBrush.h">
+      <Filter>CustomBrushes</Filter>
+    </ClInclude>
+    <ClInclude Include="scatteredLinesBrush.h">
       <Filter>CustomBrushes</Filter>
     </ClInclude>
   </ItemGroup>
