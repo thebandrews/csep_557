@@ -44,7 +44,7 @@ ImpressionistDoc::ImpressionistDoc()
 
     ImpBrush::c_pBrushes[BRUSH_POINTS]  = new PointBrush( this, "Points" );
 
-    // Note: You should implement these 5 brushes.  They are set the same (PointBrush) for now
+    // Note: You should implement these 5 brushes.
     ImpBrush::c_pBrushes[BRUSH_LINES]
     = new LineBrush( this, "Lines" );
     ImpBrush::c_pBrushes[BRUSH_CIRCLES]
@@ -95,6 +95,14 @@ void ImpressionistDoc::setBrushType(int type)
 int ImpressionistDoc::getSize()
 {
     return m_pUI->getSize();
+}
+
+//---------------------------------------------------------
+// Returns the size of the line.
+//---------------------------------------------------------
+int ImpressionistDoc::getLineSize()
+{
+    return m_pUI->getLineSize();
 }
 
 //---------------------------------------------------------

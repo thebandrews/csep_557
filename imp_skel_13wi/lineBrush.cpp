@@ -23,6 +23,10 @@ void LineBrush::BrushBegin( const ImpBrush::Point source, const ImpBrush::Point 
 
     int size = pDoc->getSize();
 
+    int width = pDoc->getLineSize();
+
+    printf( "LineBrush::BrushBegin line size: %d\n", width );
+
     glPointSize( (float)size );
 
     BrushMove( source, target );
@@ -39,6 +43,7 @@ void LineBrush::BrushMove( const ImpBrush::Point source, const ImpBrush::Point t
     }
 
     int size = pDoc->getSize();
+    int width = pDoc->getLineSize();
     int Ax,Ay,Bx,By;
 
     //
@@ -53,6 +58,8 @@ void LineBrush::BrushMove( const ImpBrush::Point source, const ImpBrush::Point t
     SetColor( source );
     glVertex2i( Ax, Ay );
     glVertex2i( Bx, By );
+    glVertex2i( Ax, (Ay + width));
+    glVertex2i( Bx, (By + width));
 
     glEnd();
 }

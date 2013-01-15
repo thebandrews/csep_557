@@ -33,8 +33,11 @@ public:
                      double divisor, double offset );
 
     void setBrushType(int type);          // called by the UI to set the brushType
-    int getSize();                        // get the UI size
-    void setSize(int size);               // set the UI size
+    int getSize();                        // get the size of the brush
+    void setSize(int size);               // set the size of the brush
+
+    int getLineSize();                    // get the size(width) of the line brush
+
     char* getImageName();                 // get the current image name
 
 

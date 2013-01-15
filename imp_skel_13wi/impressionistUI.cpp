@@ -367,6 +367,15 @@ void ImpressionistUI::cb_brushChoice(Fl_Widget* o, void* v)
 
     int type=(int)v;
 
+    //
+    // Enable/Disable Line size slider for line brush
+    //
+    if(type == BRUSH_LINES){
+        pUI->m_LineSizeSlider->activate();
+    }
+    else {
+        pUI->m_LineSizeSlider->deactivate();
+    }
 
     pDoc->setBrushType(type);
 }
@@ -391,6 +400,16 @@ void ImpressionistUI::cb_clear_canvas_button(Fl_Widget* o, void* v)
 void ImpressionistUI::cb_sizeSlides(Fl_Widget* o, void* v)
 {
     ((ImpressionistUI*)(o->user_data()))->m_nSize=int( ((Fl_Slider *)o)->value() ) ;
+}
+
+//-----------------------------------------------------------
+// Updates the line size to use from the value of the size
+// slider
+// Called by the UI when the size slider is moved
+//-----------------------------------------------------------
+void ImpressionistUI::cb_lineSizeSlides(Fl_Widget* o, void* v)
+{
+    ((ImpressionistUI*)(o->user_data()))->m_lSize=int( ((Fl_Slider *)o)->value() ) ;
 }
 
 //---------------------------------- per instance functions --------------------------------------
@@ -450,6 +469,14 @@ void ImpressionistUI::setSize( int size )
 
     if (size<=40) 
         m_BrushSizeSlider->value(m_nSize);
+}
+
+//------------------------------------------------
+// Return the line brush size(width)
+//------------------------------------------------
+int ImpressionistUI::getLineSize()
+{
+    return m_lSize;
 }
 
 // Getting/setting methods for the filter design UI
@@ -596,35 +623,57 @@ ImpressionistUI::ImpressionistUI() : m_nativeChooser(NULL) {
 
     initFltDesignUI();
 
-    // init values
-
+    //
+    // init starting brush values
+    //
     m_nSize = 10;
+    m_lSize = 1;
 
     // brush dialog definition
     m_brushDialog = new Fl_Window(400, 325, "Brush Dialog");
-        // Add a brush type choice to the dialog
-        m_BrushTypeChoice = new Fl_Choice(50,10,150,25,"&Brush");
-        m_BrushTypeChoice->user_data((void*)(this));	// record self to be used by static callback functions
-        m_BrushTypeChoice->menu(brushTypeMenu);
-        m_BrushTypeChoice->callback(cb_brushChoice);
-
-        m_ClearCanvasButton = new Fl_Button(240,10,150,25,"&Clear Canvas");
-        m_ClearCanvasButton->user_data((void*)(this));
-        m_ClearCanvasButton->callback(cb_clear_canvas_button);
 
 
-        // Add brush size slider to the dialog 
-        m_BrushSizeSlider = new Fl_Value_Slider(10, 80, 300, 20, "Size");
-        m_BrushSizeSlider->user_data((void*)(this));	// record self to be used by static callback functions
-        m_BrushSizeSlider->type(FL_HOR_NICE_SLIDER);
-        m_BrushSizeSlider->labelfont(FL_COURIER);
-        m_BrushSizeSlider->labelsize(12);
-        m_BrushSizeSlider->minimum(1);
-        m_BrushSizeSlider->maximum(40);
-        m_BrushSizeSlider->step(1);
-        m_BrushSizeSlider->value(m_nSize);
-        m_BrushSizeSlider->align(FL_ALIGN_RIGHT);
-        m_BrushSizeSlider->callback(cb_sizeSlides);
+    // Add a brush type choice to the dialog
+    m_BrushTypeChoice = new Fl_Choice(50,10,150,25,"&Brush");
+    m_BrushTypeChoice->user_data((void*)(this));	// record self to be used by static callback functions
+    m_BrushTypeChoice->menu(brushTypeMenu);
+    m_BrushTypeChoice->callback(cb_brushChoice);
+
+    m_ClearCanvasButton = new Fl_Button(240,10,150,25,"&Clear Canvas");
+    m_ClearCanvasButton->user_data((void*)(this));
+    m_ClearCanvasButton->callback(cb_clear_canvas_button);
+
+
+    //
+    // Add brush size slider to the dialog 
+    //
+    m_BrushSizeSlider = new Fl_Value_Slider(10, 80, 300, 20, "Size");
+    m_BrushSizeSlider->user_data((void*)(this));    // record self to be used by static callback functions
+    m_BrushSizeSlider->type(FL_HOR_NICE_SLIDER);
+    m_BrushSizeSlider->labelfont(FL_COURIER);
+    m_BrushSizeSlider->labelsize(12);
+    m_BrushSizeSlider->minimum(1);
+    m_BrushSizeSlider->maximum(40);
+    m_BrushSizeSlider->step(1);
+    m_BrushSizeSlider->value(m_nSize);
+    m_BrushSizeSlider->align(FL_ALIGN_RIGHT);
+    m_BrushSizeSlider->callback(cb_sizeSlides);
+
+    //
+    // Add line angle slider to the dialog
+    //
+    m_LineSizeSlider = new Fl_Value_Slider(10, 100, 300, 20, "Line Size");
+    m_LineSizeSlider->deactivate();
+    m_LineSizeSlider->user_data((void*)(this));	// record self to be used by static callback functions
+    m_LineSizeSlider->type(FL_HOR_NICE_SLIDER);
+    m_LineSizeSlider->labelfont(FL_COURIER);
+    m_LineSizeSlider->labelsize(12);
+    m_LineSizeSlider->minimum(1);
+    m_LineSizeSlider->maximum(40);
+    m_LineSizeSlider->step(1);
+    m_LineSizeSlider->value(m_lSize);
+    m_LineSizeSlider->align(FL_ALIGN_RIGHT);
+    m_LineSizeSlider->callback(cb_lineSizeSlides);
 
     m_brushDialog->end();	
 
