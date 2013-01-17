@@ -370,7 +370,7 @@ void ImpressionistUI::cb_brushChoice(Fl_Widget* o, void* v)
     //
     // Enable/Disable Line size slider for line brush
     //
-    if(type == BRUSH_LINES){
+    if(type == BRUSH_LINES || BRUSH_SCATTERED_LINES){
         pUI->m_LineSizeSlider->activate();
     }
     else {

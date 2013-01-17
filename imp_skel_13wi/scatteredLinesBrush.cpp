@@ -49,6 +49,7 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
     }
 
     GLint size = pDoc->getSize();
+    int width = pDoc->getLineSize();
     GLint lineCount = 4; // Draw up to 4 randomly placed lines.
 
     GLint A1x,A2x,AxMid,Ay,Ox,Oy;
@@ -77,13 +78,14 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
     //
     GLint randomLineCount = rand() % lineCount + 1;
 
-    glBegin( GL_LINES );
 
     //
     // Generate pointCount number of points in the size region
     //
     for(GLint i = 0; i <= randomLineCount; i++)
     {
+        glBegin( GL_POLYGON );
+
         //
         // Compute Y Coordinates
         //
@@ -106,9 +108,12 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
 
         glVertex2d( A1x, Ay );
         glVertex2d( A2x, Ay );
-    }
+        glVertex2d( A2x, Ay + width);
+        glVertex2d( A1x, Ay + width);
+        
 
-    glEnd();
+        glEnd();
+    }
 }
 
 void ScatteredLinesBrush::BrushEnd( const ImpBrush::Point source, const ImpBrush::Point target )
