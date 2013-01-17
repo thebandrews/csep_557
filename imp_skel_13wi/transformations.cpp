@@ -31,27 +31,3 @@ void Transformations::Translate(GLint &x, GLint &y, const GLint Tx, const GLint 
     y = y + Ty;
 }
 
-
-////
-//// Rotate arbitrary point about the origin
-////
-//void LineBrush::Rotate(GLint &x, GLint &y, GLint degrees)
-//{
-//    GLfloat radian = degrees * (PI / 180);
-//    GLint org_x = x;
-//    GLint org_y = y;
-//
-//
-//    x = (org_x*cos(radian) + (org_y*(-sin(radian))));
-//    y = (org_x*sin(radian) + (org_y*cos(radian)));
-//
-//}
-//
-////
-//// Translate a point by Tx,Ty
-////
-//void LineBrush::Translate(GLint &x, GLint &y, const GLint Tx, const GLint Ty)
-//{
-//    x = x + Tx;
-//    y = y + Ty;
-//}

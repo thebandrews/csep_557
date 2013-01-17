@@ -8,6 +8,7 @@
 #include "impressionistDoc.h"
 #include "impressionistUI.h"
 #include "scatteredLinesBrush.h"
+#include "transformations.h"
 
 #include <math.h>
 #include <time.h>
@@ -29,11 +30,9 @@ void ScatteredLinesBrush::BrushBegin( const ImpBrush::Point source, const ImpBru
     ImpressionistDoc* pDoc = GetDocument();
     ImpressionistUI* dlg=pDoc->m_pUI;
 
-    //
-    // Point size is always 1. Slider will indicate
-    // Dimensions / number of scattered points
-    //
-    glPointSize( 1.0 );
+    int width = pDoc->getLineSize();
+    
+    glLineWidth( (float)width );
 
     BrushMove( source, target );
 }
@@ -50,9 +49,10 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
 
     GLint size = pDoc->getSize();
     int width = pDoc->getLineSize();
+    int angle = pDoc->getLineAngle();
     GLint lineCount = 4; // Draw up to 4 randomly placed lines.
 
-    GLint A1x,A2x,AxMid,Ay,Ox,Oy;
+    GLint A1x,A2x,AxMid,A1y,A2y,Ox,Oy,Qx,Qy;
 
     ImpBrush::Point temp_point;
 
@@ -84,12 +84,13 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
     //
     for(GLint i = 0; i <= randomLineCount; i++)
     {
-        glBegin( GL_POLYGON );
+        glBegin( GL_LINES );
 
         //
         // Compute Y Coordinates
         //
-        Ay = rand() % size + Oy;
+        A1y = rand() % size + Oy;
+        A2y = A1y;
 
         //
         // For each line generate start/end of lines
@@ -98,19 +99,38 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
         A2x = A1x + size;
         AxMid = .5*(A1x + A2x);
 
+        Qx = AxMid;
+        Qy = A1y;
 
         //
         // Color sampling is different for each location
         //
         temp_point.x = source.x + (AxMid - target.x);
-        temp_point.y = source.y + (Ay - target.y);
+        temp_point.y = source.y + (A1y - target.y);
         SetColor( temp_point ); 
 
-        glVertex2d( A1x, Ay );
-        glVertex2d( A2x, Ay );
-        glVertex2d( A2x, Ay + width);
-        glVertex2d( A1x, Ay + width);
-        
+        //
+        // Translate to the origin
+        //
+        Transformations::Translate(A1x, A1y, -Qx, -Qy);
+        Transformations::Translate(A2x, A2y, -Qx, -Qy);
+
+
+        //
+        // Rotate
+        //
+        Transformations::Rotate(A1x, A1y, angle);
+        Transformations::Rotate(A2x, A2y, angle);
+
+
+        //
+        // Translate back
+        //
+        Transformations::Translate(A1x, A1y, Qx, Qy);
+        Transformations::Translate(A2x, A2y, Qx, Qy);
+
+        glVertex2d( A1x, A1y );
+        glVertex2d( A2x, A2y );
 
         glEnd();
     }
