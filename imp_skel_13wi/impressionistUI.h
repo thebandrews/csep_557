@@ -51,6 +51,7 @@ public:
 
     Fl_Slider*                  m_BrushSizeSlider;
     Fl_Slider*                  m_LineSizeSlider;
+    Fl_Slider*                  m_LineAngleSlider;
 
     Fl_Button*                  m_ClearCanvasButton;
 
@@ -71,6 +72,11 @@ public:
     // Line brush size (width) interface.
     //
     int                         getLineSize();
+
+    //
+    // Line brush angle interface.
+    //
+    int                         getLineAngle();
 
 
     // Callbacks for the image filter dialogue (different from
@@ -95,6 +101,11 @@ private:
     // Line Size attribute
     //
     int         m_lSize;
+
+    //
+    // Line Size attribute
+    //
+    int         m_lAngle;
 
     // These attributes are set by the filter kernel UI
     double fltKernel[FLT_WIDTH*FLT_HEIGHT];        //the kernel of the image filter
@@ -125,6 +136,7 @@ private:
     static void    cb_clear_canvas_button(Fl_Widget* o, void* v);
     static void    cb_sizeSlides(Fl_Widget* o, void* v);
     static void    cb_lineSizeSlides(Fl_Widget* o, void* v);
+    static void    cb_lineAngleSlides(Fl_Widget* o, void* v);
 
 };
 

@@ -370,11 +370,14 @@ void ImpressionistUI::cb_brushChoice(Fl_Widget* o, void* v)
     //
     // Enable/Disable Line size slider for line brush
     //
-    if(type == BRUSH_LINES || BRUSH_SCATTERED_LINES){
+    if(type == BRUSH_LINES || 
+       type == BRUSH_SCATTERED_LINES){
         pUI->m_LineSizeSlider->activate();
+        pUI->m_LineAngleSlider->activate();
     }
     else {
         pUI->m_LineSizeSlider->deactivate();
+        pUI->m_LineAngleSlider->deactivate();
     }
 
     pDoc->setBrushType(type);
@@ -410,6 +413,16 @@ void ImpressionistUI::cb_sizeSlides(Fl_Widget* o, void* v)
 void ImpressionistUI::cb_lineSizeSlides(Fl_Widget* o, void* v)
 {
     ((ImpressionistUI*)(o->user_data()))->m_lSize=int( ((Fl_Slider *)o)->value() ) ;
+}
+
+//-----------------------------------------------------------
+// Updates the line angle to use from the value of the size
+// slider
+// Called by the UI when the size slider is moved
+//-----------------------------------------------------------
+void ImpressionistUI::cb_lineAngleSlides(Fl_Widget* o, void* v)
+{
+    ((ImpressionistUI*)(o->user_data()))->m_lAngle=int( ((Fl_Slider *)o)->value() ) ;
 }
 
 //---------------------------------- per instance functions --------------------------------------
@@ -477,6 +490,14 @@ void ImpressionistUI::setSize( int size )
 int ImpressionistUI::getLineSize()
 {
     return m_lSize;
+}
+
+//------------------------------------------------
+// Return the line brush size(width)
+//------------------------------------------------
+int ImpressionistUI::getLineAngle()
+{
+    return m_lAngle;
 }
 
 // Getting/setting methods for the filter design UI
@@ -628,6 +649,7 @@ ImpressionistUI::ImpressionistUI() : m_nativeChooser(NULL) {
     //
     m_nSize = 10;
     m_lSize = 1;
+    m_lAngle = 0;
 
     // brush dialog definition
     m_brushDialog = new Fl_Window(400, 325, "Brush Dialog");
@@ -660,9 +682,9 @@ ImpressionistUI::ImpressionistUI() : m_nativeChooser(NULL) {
     m_BrushSizeSlider->callback(cb_sizeSlides);
 
     //
-    // Add line angle slider to the dialog
+    // Add line width slider to the dialog
     //
-    m_LineSizeSlider = new Fl_Value_Slider(10, 100, 300, 20, "Line Size");
+    m_LineSizeSlider = new Fl_Value_Slider(10, 100, 300, 20, "Line Width");
     m_LineSizeSlider->deactivate();
     m_LineSizeSlider->user_data((void*)(this));	// record self to be used by static callback functions
     m_LineSizeSlider->type(FL_HOR_NICE_SLIDER);
@@ -674,6 +696,22 @@ ImpressionistUI::ImpressionistUI() : m_nativeChooser(NULL) {
     m_LineSizeSlider->value(m_lSize);
     m_LineSizeSlider->align(FL_ALIGN_RIGHT);
     m_LineSizeSlider->callback(cb_lineSizeSlides);
+
+    //
+    // Add line angle slider to the dialog
+    //
+    m_LineAngleSlider = new Fl_Value_Slider(10, 120, 300, 20, "Line Angle");
+    m_LineAngleSlider->deactivate();
+    m_LineAngleSlider->user_data((void*)(this));	// record self to be used by static callback functions
+    m_LineAngleSlider->type(FL_HOR_NICE_SLIDER);
+    m_LineAngleSlider->labelfont(FL_COURIER);
+    m_LineAngleSlider->labelsize(12);
+    m_LineAngleSlider->minimum(0);
+    m_LineAngleSlider->maximum(360);
+    m_LineAngleSlider->step(1);
+    m_LineAngleSlider->value(m_lAngle);
+    m_LineAngleSlider->align(FL_ALIGN_RIGHT);
+    m_LineAngleSlider->callback(cb_lineAngleSlides);
 
     m_brushDialog->end();	
 

@@ -106,6 +106,14 @@ int ImpressionistDoc::getLineSize()
 }
 
 //---------------------------------------------------------
+// Returns the angle of the line.
+//---------------------------------------------------------
+int ImpressionistDoc::getLineAngle()
+{
+    return m_pUI->getLineAngle();
+}
+
+//---------------------------------------------------------
 // Load the specified image
 // This is called by the UI when the load image button is 
 // pressed.

@@ -31,6 +31,9 @@
     <ClCompile Include="scatteredCirclesBrush.cpp">
       <Filter>CustomBrushes</Filter>
     </ClCompile>
+    <ClCompile Include="transformations.cpp">
+      <Filter>Utils</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="brushes.h" />
@@ -64,10 +67,16 @@
     <ClInclude Include="scatteredCirclesBrush.h">
       <Filter>CustomBrushes</Filter>
     </ClInclude>
+    <ClInclude Include="transformations.h">
+      <Filter>Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="CustomBrushes">
       <UniqueIdentifier>{f4bbd0a1-807b-425e-b33f-f23798162614}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utils">
+      <UniqueIdentifier>{713cdf34-e11c-48b1-b380-665e5b809ce6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -37,6 +37,7 @@ public:
     void setSize(int size);               // set the size of the brush
 
     int getLineSize();                    // get the size(width) of the line brush
+    int getLineAngle();                   // get the angle of the line brush
 
     char* getImageName();                 // get the current image name
 
