@@ -74,8 +74,6 @@ void ScatteredPointsBrush::BrushMove( const ImpBrush::Point source, const ImpBru
     srand ( time(NULL) + m_clickCount );
 
 
-    glBegin( GL_POINTS );
-
     //
     // Generate pointCount number of points in the size region
     //
@@ -92,12 +90,15 @@ void ScatteredPointsBrush::BrushMove( const ImpBrush::Point source, const ImpBru
         //
         temp_point.x = source.x + (Ax - target.x);
         temp_point.y = source.y + (Ay - target.y);
+
         SetColor( temp_point ); 
 
-        glVertex2d( Ax, Ay );
-    }
+        glBegin( GL_POINTS );
 
-    glEnd();
+        glVertex2d( Ax, Ay );
+
+        glEnd();
+    }
 }
 
 void ScatteredPointsBrush::BrushEnd( const ImpBrush::Point source, const ImpBrush::Point target )

@@ -88,15 +88,15 @@ void ScatteredCirclesBrush::BrushMove( const ImpBrush::Point source, const ImpBr
         Ay = rand() % size + Oy;
         Ax = rand() % size + Ox;
 
-        glBegin( GL_POLYGON );
-
         //
         // Color sampling is different for each location
         //
         temp_point.x = source.x + (Ax - target.x);
         temp_point.y = source.y + (Ay - target.y);
+
         SetColor( temp_point ); 
 
+        glBegin( GL_POLYGON );
 
         //
         // Draw the circle

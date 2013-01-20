@@ -51,8 +51,10 @@ void TriangleBrush::BrushMove( const ImpBrush::Point source, const ImpBrush::Poi
     By = target.y - (.5*size);
     Cy = target.y + (.5*size);
 
-    glBegin( GL_POLYGON );
     SetColor( source );
+
+    glBegin( GL_POLYGON );
+
     glVertex2i( Ax, Ay );
     glVertex2i( Bx, By );
     glVertex2i( Cx, Cy );

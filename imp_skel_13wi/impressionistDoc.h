@@ -33,7 +33,9 @@ public:
                      double divisor, double offset );
 
     void setBrushType(int type);            // called by the UI to set the brushType
-    void setStrokeDirection(int type);  // called by the UI to set the stroke direction type
+    void setStrokeDirection(int type);      // called by the UI to set the stroke direction type
+
+    GLfloat getAlpha();
 
     int getSize();                          // get the size of the brush
     void setSize(int size);                 // set the size of the brush

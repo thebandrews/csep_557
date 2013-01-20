@@ -53,6 +53,7 @@ public:
     Fl_Slider*                  m_BrushSizeSlider;
     Fl_Slider*                  m_LineSizeSlider;
     Fl_Slider*                  m_LineAngleSlider;
+    Fl_Slider*                  m_AlphaSlider;
 
     Fl_Button*                  m_ClearCanvasButton;
 
@@ -85,6 +86,10 @@ public:
     int                         getStrokeDirection();
     void                        setStrokeDirection(int type);
 
+    //
+    // Brush alpha interface
+    //
+    GLfloat                     getAlpha();
 
     // Callbacks for the image filter dialogue (different from
     // the other callbacks because they aren't static)
@@ -113,6 +118,11 @@ private:
     // Line Size attribute
     //
     int         m_lAngle;
+
+    //
+    // Alpha attribute
+    //
+    GLfloat         m_nAlpha;
 
     //
     // Line Stroke Direction attribute
@@ -151,6 +161,7 @@ private:
     static void    cb_sizeSlides(Fl_Widget* o, void* v);
     static void    cb_lineSizeSlides(Fl_Widget* o, void* v);
     static void    cb_lineAngleSlides(Fl_Widget* o, void* v);
+    static void    cb_alphaSlides(Fl_Widget* o, void* v);
 
 };
 

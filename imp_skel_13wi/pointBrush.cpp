@@ -40,9 +40,9 @@ void PointBrush::BrushMove( const ImpBrush::Point source, const ImpBrush::Point 
         return;
     }
 
-    glBegin( GL_POINTS );
-    SetColor( source );
+    SetColor( source );     // Make sure to set color before calling glBegin
 
+    glBegin( GL_POINTS );
     glVertex2d( target.x, target.y );
 
     glEnd();

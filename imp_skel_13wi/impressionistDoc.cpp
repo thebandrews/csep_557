@@ -108,6 +108,14 @@ int ImpressionistDoc::getSize()
 }
 
 //---------------------------------------------------------
+// Returns the size of the brush.
+//---------------------------------------------------------
+GLfloat ImpressionistDoc::getAlpha()
+{
+    return m_pUI->getAlpha();
+}
+
+//---------------------------------------------------------
 // Returns the size of the line.
 //---------------------------------------------------------
 int ImpressionistDoc::getLineSize()

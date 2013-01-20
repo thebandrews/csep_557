@@ -95,8 +95,6 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
     //
     for(GLint i = 0; i <= randomLineCount; i++)
     {
-        glBegin( GL_LINES );
-
         //
         // Compute Y Coordinates
         //
@@ -119,6 +117,8 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
         temp_point.x = source.x + (AxMid - target.x);
         temp_point.y = source.y + (A1y - target.y);
         SetColor( temp_point ); 
+
+        glBegin( GL_LINES );
 
         //
         // Translate to the origin

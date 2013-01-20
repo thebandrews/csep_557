@@ -47,8 +47,8 @@ void CircleBrush::BrushMove( const ImpBrush::Point source, const ImpBrush::Point
     GLint segments = 40; // Increase segment size to increase accuracy
     GLint Ax,Ay;
 
+    SetColor( source );     // Make sure to call before glBegin
     glBegin( GL_POLYGON );
-    SetColor( source );
 
     //
     // Compute Circle points (from 0-360 degrees)

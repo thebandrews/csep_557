@@ -434,11 +434,21 @@ void ImpressionistUI::cb_lineSizeSlides(Fl_Widget* o, void* v)
 //-----------------------------------------------------------
 // Updates the line angle to use from the value of the size
 // slider
-// Called by the UI when the size slider is moved
+// Called by the UI when the angle slider is moved
 //-----------------------------------------------------------
 void ImpressionistUI::cb_lineAngleSlides(Fl_Widget* o, void* v)
 {
     ((ImpressionistUI*)(o->user_data()))->m_lAngle=int( ((Fl_Slider *)o)->value() ) ;
+}
+
+//-----------------------------------------------------------
+// Updates the alpha to use from the value of the alpha
+// slider.
+// Called by the UI when the alpha slider is moved
+//-----------------------------------------------------------
+void ImpressionistUI::cb_alphaSlides(Fl_Widget* o, void* v)
+{
+    ((ImpressionistUI*)(o->user_data()))->m_nAlpha=GLfloat( ((Fl_Slider *)o)->value() );
 }
 
 //---------------------------------- per instance functions --------------------------------------
@@ -487,6 +497,14 @@ void ImpressionistUI::setDocument(ImpressionistDoc* doc)
 int ImpressionistUI::getSize()
 {
     return m_nSize;
+}
+
+//------------------------------------------------
+// Return the brush size
+//------------------------------------------------
+GLfloat ImpressionistUI::getAlpha()
+{
+    return m_nAlpha;
 }
 
 //-------------------------------------------------
@@ -689,6 +707,7 @@ ImpressionistUI::ImpressionistUI() : m_nativeChooser(NULL) {
     m_nSize = 10;
     m_lSize = 1;
     m_lAngle = 0;
+    m_nAlpha = 1.0;
 
     // brush dialog definition
     m_brushDialog = new Fl_Window(400, 325, "Brush Dialog");
@@ -758,6 +777,21 @@ ImpressionistUI::ImpressionistUI() : m_nativeChooser(NULL) {
     m_LineAngleSlider->value(m_lAngle);
     m_LineAngleSlider->align(FL_ALIGN_RIGHT);
     m_LineAngleSlider->callback(cb_lineAngleSlides);
+
+    //
+    // Add an Alpha slider to the dialog
+    //
+    m_AlphaSlider = new Fl_Value_Slider(10, 140, 300, 20, "Alpha");
+    m_AlphaSlider->user_data((void*)(this));	// record self to be used by static callback functions
+    m_AlphaSlider->type(FL_HOR_NICE_SLIDER);
+    m_AlphaSlider->labelfont(FL_COURIER);
+    m_AlphaSlider->labelsize(12);
+    m_AlphaSlider->minimum(0);
+    m_AlphaSlider->maximum(1);
+    m_AlphaSlider->step(0.01);
+    m_AlphaSlider->value(m_nAlpha);
+    m_AlphaSlider->align(FL_ALIGN_RIGHT);
+    m_AlphaSlider->callback(cb_alphaSlides);
 
     m_brushDialog->end();	
 
