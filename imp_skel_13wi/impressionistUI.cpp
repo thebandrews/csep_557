@@ -374,13 +374,29 @@ void ImpressionistUI::cb_brushChoice(Fl_Widget* o, void* v)
        type == BRUSH_SCATTERED_LINES){
         pUI->m_LineSizeSlider->activate();
         pUI->m_LineAngleSlider->activate();
+        pUI->m_StrokeDirectionChoice->activate();
     }
     else {
         pUI->m_LineSizeSlider->deactivate();
         pUI->m_LineAngleSlider->deactivate();
+        pUI->m_StrokeDirectionChoice->deactivate();
     }
 
     pDoc->setBrushType(type);
+}
+
+//-------------------------------------------------------------
+// Sets the type of stroke direction to use.
+// Called by the UI when a stroke direction is chosen from menu.
+//-------------------------------------------------------------
+void ImpressionistUI::cb_strokeDirection(Fl_Widget* o, void* v)
+{
+    ImpressionistUI* pUI=((ImpressionistUI *)(o->user_data()));
+    ImpressionistDoc* pDoc=pUI->getDocument();
+
+    int type=(int)v;
+
+    pDoc->setStrokeDirection(type);
 }
 
 //------------------------------------------------------------
@@ -500,6 +516,23 @@ int ImpressionistUI::getLineAngle()
     return m_lAngle;
 }
 
+//------------------------------------------------
+// Return the line brush stroke direction
+//------------------------------------------------
+int ImpressionistUI::getStrokeDirection()
+{
+    return m_lStrokeDirection;
+}
+
+//------------------------------------------------
+// Set the line brush stroke direction
+//------------------------------------------------
+void ImpressionistUI::setStrokeDirection(int type)
+{
+    m_lStrokeDirection = type;
+}
+
+
 // Getting/setting methods for the filter design UI
 void ImpressionistUI::initFltDesignUI(void)
 {
@@ -598,6 +631,12 @@ Fl_Menu_Item ImpressionistUI::brushTypeMenu[NUM_BRUSH_TYPE+1] = {
     {0}
 };
 
+Fl_Menu_Item ImpressionistUI::strokeDirectionMenu[NUM_STROKE_DIRECTIONS+1] = {
+    {"Slider",              FL_ALT+'s', (Fl_Callback *)ImpressionistUI::cb_strokeDirection, (void *)STROKE_DIRECTION_SLIDER},
+    {"Gradient",            FL_ALT+'g', (Fl_Callback *)ImpressionistUI::cb_strokeDirection, (void *)STROKE_DIRECTION_GRADIENT},
+    {0}
+};
+
 
 
 //----------------------------------------------------
@@ -660,6 +699,13 @@ ImpressionistUI::ImpressionistUI() : m_nativeChooser(NULL) {
     m_BrushTypeChoice->user_data((void*)(this));	// record self to be used by static callback functions
     m_BrushTypeChoice->menu(brushTypeMenu);
     m_BrushTypeChoice->callback(cb_brushChoice);
+
+    // Add a stroke direction choice to the dialog
+    m_StrokeDirectionChoice = new Fl_Choice(114,40,150,25,"&Stroke Direction");
+    m_StrokeDirectionChoice->user_data((void*)(this));	// record self to be used by static callback functions
+    m_StrokeDirectionChoice->menu(strokeDirectionMenu);
+    m_StrokeDirectionChoice->callback(cb_strokeDirection);
+    m_StrokeDirectionChoice->deactivate();
 
     m_ClearCanvasButton = new Fl_Button(240,10,150,25,"&Clear Canvas");
     m_ClearCanvasButton->user_data((void*)(this));

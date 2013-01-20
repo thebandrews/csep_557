@@ -16,6 +16,7 @@ public:
 
     static void Rotate(GLint &x, GLint &y, GLint degrees);
     static void Translate(GLint &x, GLint &y, const GLint Tx, const GLint Ty);
+    static GLdouble YPrime(GLubyte *color);
 };
 
 #endif

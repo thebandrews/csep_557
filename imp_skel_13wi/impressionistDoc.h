@@ -32,14 +32,17 @@ public:
                      int knlWidth, int knlHeight, 
                      double divisor, double offset );
 
-    void setBrushType(int type);          // called by the UI to set the brushType
-    int getSize();                        // get the size of the brush
-    void setSize(int size);               // set the size of the brush
+    void setBrushType(int type);            // called by the UI to set the brushType
+    void setStrokeDirection(int type);  // called by the UI to set the stroke direction type
 
-    int getLineSize();                    // get the size(width) of the line brush
-    int getLineAngle();                   // get the angle of the line brush
+    int getSize();                          // get the size of the brush
+    void setSize(int size);                 // set the size of the brush
 
-    char* getImageName();                 // get the current image name
+    int getLineSize();                      // get the size(width) of the line brush
+    int getLineAngle();                     // get the angle of the line brush
+    int getStrokeDirection();               // get the stroke direction of the line brush
+
+    char* getImageName();                   // get the current image name
 
 
     // Attributes
@@ -62,6 +65,7 @@ public:
 
     // The current active brush.
     ImpBrush* m_pCurrentBrush;
+
     // Size of the brush.
     int m_nSize;
 

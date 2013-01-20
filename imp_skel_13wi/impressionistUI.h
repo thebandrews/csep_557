@@ -48,6 +48,7 @@ public:
     // for brush dialog
     Fl_Window*                  m_brushDialog;
     Fl_Choice*                  m_BrushTypeChoice;
+    Fl_Choice*                  m_StrokeDirectionChoice;
 
     Fl_Slider*                  m_BrushSizeSlider;
     Fl_Slider*                  m_LineSizeSlider;
@@ -78,6 +79,12 @@ public:
     //
     int                         getLineAngle();
 
+    //
+    // Line brush stroke direction interface.
+    //
+    int                         getStrokeDirection();
+    void                        setStrokeDirection(int type);
+
 
     // Callbacks for the image filter dialogue (different from
     // the other callbacks because they aren't static)
@@ -107,6 +114,11 @@ private:
     //
     int         m_lAngle;
 
+    //
+    // Line Stroke Direction attribute
+    //
+    int         m_lStrokeDirection;
+
     // These attributes are set by the filter kernel UI
     double fltKernel[FLT_WIDTH*FLT_HEIGHT];        //the kernel of the image filter
     double scale,offset;                        //the divisor and offset parameter, 
@@ -117,6 +129,7 @@ private:
     // Static class members
     static Fl_Menu_Item        menuitems[];
     static Fl_Menu_Item        brushTypeMenu[NUM_BRUSH_TYPE+1];
+    static Fl_Menu_Item        strokeDirectionMenu[NUM_STROKE_DIRECTIONS+1];
 
     static ImpressionistUI*    whoami(Fl_Menu_* o);
 
@@ -133,6 +146,7 @@ private:
     static void    cb_exit(Fl_Menu_* o, void* v);
     static void    cb_about(Fl_Menu_* o, void* v);
     static void    cb_brushChoice(Fl_Widget* o, void* v);
+    static void    cb_strokeDirection(Fl_Widget* o, void* v);
     static void    cb_clear_canvas_button(Fl_Widget* o, void* v);
     static void    cb_sizeSlides(Fl_Widget* o, void* v);
     static void    cb_lineSizeSlides(Fl_Widget* o, void* v);
