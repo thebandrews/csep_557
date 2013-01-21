@@ -275,9 +275,9 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
     //
     // Loop through entire source image
     //
-    for(int row = 0; row < knlHeight; row++)
+    for(int row = 0; row < srcBufferHeight; row++)
     {
-        for(int column = 0; column < knlWidth; column++)
+        for(int column = 0; column < srcBufferWidth; column++)
         {
             //
             // Get 5x5 r,g,b pixel matrix that surrounds the current pixel
@@ -318,7 +318,7 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
             }
 
             //
-            // Apply the matrix to each channel
+            // Apply the filter kernel to each channel
             //
             GLint r_sum = 0;
             GLint g_sum = 0;
@@ -364,7 +364,17 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
             b_sum = b_sum < 0 ? 0 : b_sum;
 
 
-            printf("rgb_3 = (%d,%d,%d)\n", r_sum, g_sum, b_sum);
+            //printf("rgb_3 = (%d,%d,%d)\n", r_sum, g_sum, b_sum);
+
+
+            //
+            // Set the RGB in the dest buffer
+            //
+            destBuffer[3*(row*srcBufferWidth+column)+0] = r_sum;
+            destBuffer[3*(row*srcBufferWidth+column)+1] = g_sum;
+            destBuffer[3*(row*srcBufferWidth+column)+2] = b_sum;
+
+            //printf("dest_rgb[%d][%d] = (%d,%d,%d)\n", row, column, r_sum, g_sum, b_sum);
         }
     }
 
