@@ -305,9 +305,9 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
                     // Handle edge case by extending edge pixels
                     //
                     GLint x0 = x < 0 ? 0 : x;
-                    x0 = x > srcBufferWidth ? srcBufferWidth : x;
+                    x0 = x >= srcBufferWidth ? (srcBufferWidth-1) : x;
                     GLint y0 = y < 0 ? 0 : y;
-                    y0 = y > srcBufferHeight ? srcBufferHeight : y;
+                    y0 = y >= srcBufferHeight ? (srcBufferHeight-1) : y;
 
                     red_matrix[a][b] = sourceBuffer[3*(y0*srcBufferWidth+x0)+0];
                     green_matrix[a][b] = sourceBuffer[3*(y0*srcBufferWidth+x0)+1];
@@ -320,9 +320,9 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
             //
             // Apply the filter kernel to each channel
             //
-            GLint r_sum = 0;
-            GLint g_sum = 0;
-            GLint b_sum = 0;
+            GLdouble r_sum = 0.0;
+            GLdouble g_sum = 0.0;
+            GLdouble b_sum = 0.0;
 
             for(int i = 0; i < knlHeight; i++)
             {
@@ -370,9 +370,9 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
             //
             // Set the RGB in the dest buffer
             //
-            destBuffer[3*(row*srcBufferWidth+column)+0] = r_sum;
-            destBuffer[3*(row*srcBufferWidth+column)+1] = g_sum;
-            destBuffer[3*(row*srcBufferWidth+column)+2] = b_sum;
+            destBuffer[3*(row*srcBufferWidth+column)+0] = (GLint)r_sum;
+            destBuffer[3*(row*srcBufferWidth+column)+1] = (GLint)g_sum;
+            destBuffer[3*(row*srcBufferWidth+column)+2] = (GLint)b_sum;
 
             //printf("dest_rgb[%d][%d] = (%d,%d,%d)\n", row, column, r_sum, g_sum, b_sum);
         }
