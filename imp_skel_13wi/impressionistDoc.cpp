@@ -18,6 +18,7 @@
 // Include individual brush headers here.
 #include "pointBrush.h"
 #include "triangleBrush.h"
+#include "rotatingTriangleBrush.h"
 #include "lineBrush.h"
 #include "circleBrush.h"
 #include "scatteredPointsBrush.h"
@@ -57,6 +58,8 @@ ImpressionistDoc::ImpressionistDoc()
     = new ScatteredCirclesBrush( this, "Scattered Circles" );
     ImpBrush::c_pBrushes[BRUSH_TRIANGLES]
     = new TriangleBrush( this, "Triangles" );
+    ImpBrush::c_pBrushes[BRUSH_ROTATING_TRIANGLE]
+    = new RotatingTriangleBrush( this, "Rotating Triangle" );
 
     // make one of the brushes current
     m_pCurrentBrush	= ImpBrush::c_pBrushes[0];

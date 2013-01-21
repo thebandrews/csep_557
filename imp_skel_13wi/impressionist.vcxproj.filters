@@ -34,6 +34,9 @@
     <ClCompile Include="transformations.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="rotatingTriangleBrush.cpp">
+      <Filter>CustomBrushes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="brushes.h" />
@@ -69,6 +72,9 @@
     </ClInclude>
     <ClInclude Include="transformations.h">
       <Filter>Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="rotatingTriangleBrush.h">
+      <Filter>CustomBrushes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

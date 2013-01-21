@@ -154,6 +154,7 @@
     <ClCompile Include="originalView.cpp" />
     <ClCompile Include="paintView.cpp" />
     <ClCompile Include="pointBrush.cpp" />
+    <ClCompile Include="rotatingTriangleBrush.cpp" />
     <ClCompile Include="scatteredCirclesBrush.cpp" />
     <ClCompile Include="scatteredLinesBrush.cpp" />
     <ClCompile Include="scatteredPointsBrush.cpp" />
@@ -174,6 +175,7 @@
     <ClInclude Include="originalView.h" />
     <ClInclude Include="paintView.h" />
     <ClInclude Include="pointBrush.h" />
+    <ClInclude Include="rotatingTriangleBrush.h" />
     <ClInclude Include="scatteredCirclesBrush.h" />
     <ClInclude Include="scatteredLinesBrush.h" />
     <ClInclude Include="scatteredPointsBrush.h" />

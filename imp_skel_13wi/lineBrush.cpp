@@ -63,31 +63,17 @@ void LineBrush::BrushMove( const ImpBrush::Point source, const ImpBrush::Point t
     //
     Ax = target.x - (.5*size);
     Bx = target.x + (.5*size);
-    Qx = target.x;
     Ay = target.y;
     By = target.y;
-    Qy = target.y;
 
 
     //
-    // Translate to the origin
+    // Translate, Rotate, Translate
     //
-    Transformations::Translate(Ax, Ay, -Qx, -Qy);
-    Transformations::Translate(Bx, By, -Qx, -Qy);
-
-
-    //
-    // Rotate
-    //
-    Transformations::Rotate(Ax, Ay, angle);
-    Transformations::Rotate(Bx, By, angle);
-
-
-    //
-    // Translate back
-    //
-    Transformations::Translate(Ax, Ay, Qx, Qy);
-    Transformations::Translate(Bx, By, Qx, Qy);
+    glPushMatrix();
+    glTranslatef(target.x, target.y, 0);
+    glRotatef (angle, 0.0, 0.0, 1.0);
+    glTranslatef(-target.x, -target.y, 0);
 
     SetColor( source );
     glBegin( GL_LINES );
@@ -96,6 +82,7 @@ void LineBrush::BrushMove( const ImpBrush::Point source, const ImpBrush::Point t
     glVertex2i( Bx, By );
 
     glEnd();
+    glPopMatrix();
 }
 
 

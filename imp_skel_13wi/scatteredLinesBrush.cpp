@@ -108,8 +108,8 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
         A2x = A1x + size;
         AxMid = .5*(A1x + A2x);
 
-        Qx = AxMid;
-        Qy = A1y;
+        //Qx = AxMid;
+        //Qy = A1y;
 
         //
         // Color sampling is different for each location
@@ -118,32 +118,20 @@ void ScatteredLinesBrush::BrushMove( const ImpBrush::Point source, const ImpBrus
         temp_point.y = source.y + (A1y - target.y);
         SetColor( temp_point ); 
 
+
+        glPushMatrix();
+        glTranslatef(target.x, target.y, 0);
+        glRotatef (angle, 0.0, 0.0, 1.0);
+        glTranslatef(-target.x, -target.y, 0);
+
+
         glBegin( GL_LINES );
-
-        //
-        // Translate to the origin
-        //
-        Transformations::Translate(A1x, A1y, -Qx, -Qy);
-        Transformations::Translate(A2x, A2y, -Qx, -Qy);
-
-
-        //
-        // Rotate
-        //
-        Transformations::Rotate(A1x, A1y, angle);
-        Transformations::Rotate(A2x, A2y, angle);
-
-
-        //
-        // Translate back
-        //
-        Transformations::Translate(A1x, A1y, Qx, Qy);
-        Transformations::Translate(A2x, A2y, Qx, Qy);
 
         glVertex2d( A1x, A1y );
         glVertex2d( A2x, A2y );
 
         glEnd();
+        glPopMatrix();
     }
 }
 
