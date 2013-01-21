@@ -282,6 +282,12 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
             //
             // Get 5x5 r,g,b pixel matrix that surrounds the current pixel
             //
+            //
+            // Calculations can be made directly on the source buffer values. Creating r,g,b
+            // matrices is not necessary but is added for my own understanding and 
+            // helped to break the problem into smaller pieces. 
+            // However, this will slow down the computations significantly.
+            //
             GLint** red_matrix = new GLint*[knlHeight];
             GLint** green_matrix = new GLint*[knlHeight];
             GLint** blue_matrix = new GLint*[knlHeight];
@@ -375,6 +381,20 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
             destBuffer[3*(row*srcBufferWidth+column)+2] = (GLint)b_sum;
 
             //printf("dest_rgb[%d][%d] = (%d,%d,%d)\n", row, column, r_sum, g_sum, b_sum);
+
+            //
+            // Clean up memory
+            //
+            for(int i = 0; i < knlHeight; ++i)
+            {
+                delete red_matrix[i];
+                delete green_matrix[i];
+                delete blue_matrix[i];
+            }
+
+            delete red_matrix;
+            delete green_matrix;
+            delete blue_matrix;
         }
     }
 
