@@ -387,14 +387,14 @@ void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
             //
             for(int i = 0; i < knlHeight; ++i)
             {
-                delete red_matrix[i];
-                delete green_matrix[i];
-                delete blue_matrix[i];
+                delete []red_matrix[i];
+                delete []green_matrix[i];
+                delete []blue_matrix[i];
             }
 
-            delete red_matrix;
-            delete green_matrix;
-            delete blue_matrix;
+            delete []red_matrix;
+            delete []green_matrix;
+            delete []blue_matrix;
         }
     }
 
