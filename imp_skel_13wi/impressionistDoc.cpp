@@ -240,27 +240,27 @@ int ImpressionistDoc::clearCanvas()
 
 
 /*
-*	INPUT: 
-*		sourceBuffer:		the original image buffer, 
-*		srcBufferWidth:		the width of the image buffer
-*		srcBufferHeight:	the height of the image buffer
-*							the buffer is arranged such that 
-*							origImg[3*(row*srcBufferWidth+column)+0], 
-*							origImg[3*(row*srcBufferWidth+column)+1], 
-*							origImg[3*(row*srcBufferWidth+column)+2]
-*							are R, G, B values for pixel at (column, row).
-*		destBuffer:			the image buffer to put the resulting
-*							image in.  It is always the same size
-*							as the source buffer.
+*    INPUT: 
+*        sourceBuffer:       the original image buffer, 
+*        srcBufferWidth:     the width of the image buffer
+*        srcBufferHeight:    the height of the image buffer
+*                            the buffer is arranged such that 
+*                            origImg[3*(row*srcBufferWidth+column)+0], 
+*                            origImg[3*(row*srcBufferWidth+column)+1], 
+*                            origImg[3*(row*srcBufferWidth+column)+2]
+*                            are R, G, B values for pixel at (column, row).
+*        destBuffer:         the image buffer to put the resulting
+*                            image in.  It is always the same size
+*                            as the source buffer.
 *
-*      filterKernel:		the 2D filter kernel,
-*		knlWidth:			the width of the kernel
-*		knlHeight:			the height of the kernel
+*      filterKernel:         the 2D filter kernel,
+*          knlWidth:         the width of the kernel
+*         knlHeight:         the height of the kernel
 *
-*		divisor, offset:	each pixel after filtering should be
-*							divided by divisor and then added by offset
+*        divisor, offset:    each pixel after filtering should be
+*                            divided by divisor and then added by offset
 */
-void ImpressionistDoc::applyFilter( const unsigned char* sourceBuffer,
+void ImpressionistDoc::applyFilter(const unsigned char* sourceBuffer,
                                    int srcBufferWidth, int srcBufferHeight,
                                    unsigned char* destBuffer,
                                    const double *filterKernel, 
@@ -268,6 +268,105 @@ void ImpressionistDoc::applyFilter( const unsigned char* sourceBuffer,
                                    double divisor, double offset )
 {
     // This needs to be implemented for image filtering to work.
+
+    //printf("srcBufferWidth: %d, srcBufferHeight: %d, knlWidth: %d, knlHeight: %d, divisor: %f, offset: %f\n", 
+            //srcBufferWidth, srcBufferHeight, knlWidth, knlHeight, divisor, offset);
+
+    //
+    // Loop through entire source image
+    //
+    for(int row = 0; row < knlHeight; row++)
+    {
+        for(int column = 0; column < knlWidth; column++)
+        {
+            //
+            // Get 5x5 r,g,b pixel matrix that surrounds the current pixel
+            //
+            GLint** red_matrix = new GLint*[knlHeight];
+            GLint** green_matrix = new GLint*[knlHeight];
+            GLint** blue_matrix = new GLint*[knlHeight];
+
+            for(int i = 0; i < knlHeight; ++i)
+            {
+                red_matrix[i] = new GLint[knlWidth];
+                green_matrix[i] = new GLint[knlWidth];
+                blue_matrix[i] = new GLint[knlWidth];
+            }
+
+            //
+            // Because the image is stored upside down, start at the bottom left corner
+            // and work up copying the color pixels to the rgb matrices.
+            //
+            for(GLint y = (row - 2), a = knlHeight - 1; y < (row - 2 + knlHeight); y++, a--)
+            {
+                for(GLint x = (column - 2), b = 0; x < (column - 2 + knlWidth); x++, b++)
+                {
+                    //
+                    // Handle edge case by extending edge pixels
+                    //
+                    GLint x0 = x < 0 ? 0 : x;
+                    x0 = x > srcBufferWidth ? srcBufferWidth : x;
+                    GLint y0 = y < 0 ? 0 : y;
+                    y0 = y > srcBufferHeight ? srcBufferHeight : y;
+
+                    red_matrix[a][b] = sourceBuffer[3*(y0*srcBufferWidth+x0)+0];
+                    green_matrix[a][b] = sourceBuffer[3*(y0*srcBufferWidth+x0)+1];
+                    blue_matrix[a][b] = sourceBuffer[3*(y0*srcBufferWidth+x0)+2];
+
+                    //printf("rgb_1[%d][%d] = (%d,%d,%d)\n", a, b, red_matrix[a][b], green_matrix[a][b], blue_matrix[a][b]);
+                }
+            }
+
+            //
+            // Apply the matrix to each channel
+            //
+            GLint r_sum = 0;
+            GLint g_sum = 0;
+            GLint b_sum = 0;
+
+            for(int i = 0; i < knlHeight; i++)
+            {
+                for(int j =0; j < knlWidth; j++)
+                {
+                    //printf("kernel_matrix[%d][%d] = %f\n", i, j, filterKernel[i*knlHeight + j]);
+                    r_sum += red_matrix[i][j]*filterKernel[i*knlHeight + j];
+                    g_sum += green_matrix[i][j]*filterKernel[i*knlHeight + j];
+                    b_sum += blue_matrix[i][j]*filterKernel[i*knlHeight + j];
+                }
+            }
+
+            //
+            // Apply divisor
+            //
+            if(divisor > 0)
+            {
+                r_sum = (r_sum / divisor);
+                g_sum = (g_sum / divisor);
+                b_sum = (b_sum / divisor);
+            }
+
+            //
+            // Apply offset
+            //
+            r_sum += offset;
+            g_sum += offset;
+            b_sum += offset;
+
+            //
+            // Value can only be in 0-255 range
+            //
+            r_sum = r_sum > 255 ? 255 : r_sum;
+            g_sum = g_sum > 255 ? 255 : g_sum;
+            b_sum = b_sum > 255 ? 255 : b_sum;
+
+            r_sum = r_sum < 0 ? 0 : r_sum;
+            g_sum = g_sum < 0 ? 0 : g_sum;
+            b_sum = b_sum < 0 ? 0 : b_sum;
+
+
+            printf("rgb_3 = (%d,%d,%d)\n", r_sum, g_sum, b_sum);
+        }
+    }
 
 
 }
